@@ -12,7 +12,7 @@ mongoose
   .connect(MONGODB_URI)
   .then(x => {
     console.log(`Connected to the database: "${x.connection.name}"`);
-    // Before adding any recipes to the database, let's remove all existing ones
+   
     return Recipe.deleteMany()
   })
   .then((Pesto) => {
@@ -24,6 +24,13 @@ mongoose
   .then(() => {
     return Recipe.create(data)
   })
+  .then(() => {
+    return Recipe.insertMany(data)
+  })
+  .then((recipes) => {
+  console.log (`${data.title}`)
+  }) 
+  
   .then(() => {
     return Recipe.findOneAndUpdate({title:'Rigatoni Ala Genovese'},{duration:100})
   })
